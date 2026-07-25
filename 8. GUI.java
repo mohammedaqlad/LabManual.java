@@ -1,71 +1,60 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.util.Scanner;
 
-public class StudentRegistrationForm extends JFrame implements ActionListener {
-
-    JLabel l1, l2, l3;
-    JTextField t1, t2, t3;
-    JButton submit, clear;
-
-    StudentRegistrationForm() {
-
-        setTitle("Student Registration Form");
-        setSize(400, 300);
-        setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        l1 = new JLabel("Name:");
-        l2 = new JLabel("Roll Number:");
-        l3 = new JLabel("Course:");
-
-        t1 = new JTextField(20);
-        t2 = new JTextField(20);
-        t3 = new JTextField(20);
-
-        submit = new JButton("Submit");
-        clear = new JButton("Clear");
-
-        submit.addActionListener(this);
-        clear.addActionListener(this);
-
-        add(l1);
-        add(t1);
-
-        add(l2);
-        add(t2);
-
-        add(l3);
-        add(t3);
-
-        add(submit);
-        add(clear);
-
-        setVisible(true);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == submit) {
-            String name = t1.getText();
-            String roll = t2.getText();
-            String course = t3.getText();
-
-            JOptionPane.showMessageDialog(this,
-                    "Registration Successful!\n\n"
-                    + "Name: " + name
-                    + "\nRoll Number: " + roll
-                    + "\nCourse: " + course);
-        }
-
-        if (e.getSource() == clear) {
-            t1.setText("");
-            t2.setText("");
-            t3.setText("");
-        }
-    }
-
+public class Main {
     public static void main(String[] args) {
-        new StudentRegistrationForm();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("----------------------------------------------------");
+        System.out.println("               STUDENT REGISTRATION FORM");
+        System.out.println("----------------------------------------------------");
+
+        System.out.print("USN            : ");
+        String usn = sc.nextLine().trim();
+
+        System.out.print("Name           : ");
+        String name = sc.nextLine().trim();
+
+        if (usn.isEmpty() || name.isEmpty()) {
+            System.out.println("\nValidation Error: USN and Name are mandatory fields!");
+            return;
+        }
+
+        System.out.println("Branch options : 1) Computer Science  2) Electronics  3) Mechanical  4) Civil");
+        System.out.print("Choose branch (1-4): ");
+        int branchChoice = Integer.parseInt(sc.nextLine().trim());
+        String branch;
+        if (branchChoice == 1) branch = "Computer Science";
+        else if (branchChoice == 2) branch = "Electronics";
+        else if (branchChoice == 3) branch = "Mechanical";
+        else branch = "Civil";
+
+        System.out.print("Gender (M/F)   : ");
+        String genderInput = sc.nextLine().trim().toUpperCase();
+        String gender;
+        if (genderInput.equals("M")) gender = "Male";
+        else if (genderInput.equals("F")) gender = "Female";
+        else gender = "Not Selected";
+
+        System.out.print("Skills - Java? (y/n): ");
+        boolean javaSkill = sc.nextLine().trim().equalsIgnoreCase("y");
+        System.out.print("Skills - Python? (y/n): ");
+        boolean pythonSkill = sc.nextLine().trim().equalsIgnoreCase("y");
+
+        String skills = "";
+        if (javaSkill) skills += "Java ";
+        if (pythonSkill) skills += "Python ";
+        if (skills.isEmpty()) skills = "None";
+
+        System.out.println();
+        System.out.println("----------------------------------------------------");
+        System.out.println("Student Details");
+        System.out.println("----------------------------------------------------");
+        System.out.println("USN     : " + usn);
+        System.out.println("Name    : " + name);
+        System.out.println("Branch  : " + branch);
+        System.out.println("Gender  : " + gender);
+        System.out.println("Skills  : " + skills.trim());
+        System.out.println("----------------------------------------------------");
     }
 }
+
